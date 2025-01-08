@@ -35,8 +35,8 @@ Lean4そのものについては以下のリソースで記述されています
  * [Theorem Proving in Lean 4](https://leanprover.github.io/theorem_proving_in_lean4/) はLeanで証明を書くためのチュートリアルです。[^fn1]
  * [The Lean 4 Manual](https://leanprover.github.io/lean4/doc/) はLean言語とその機能のリファレンスを提供しています。本書執筆時点ではまだ不完全ですが、本書よりもLeanの多くの側面が詳細に記述されています。
  * [How To Prove It With Lean](https://djvelleman.github.io/HTPIwL/) は [_How To Prove It_](https://www.cambridge.org/highereducation/books/how-to-prove-it/6D2965D625C6836CD4A785A2C843B3DA#overview) という定評のある教科書のLeanベースの付録であり、紙と鉛筆で数学的証明を書くための入門書です。
- * [Metaprogramming in Lean 4](https://github.com/arthurpaulino/lean4-metaprogramming-book) は中置演算子や記法などからマクロ・カスタムのタクティク・完全にカスタムな組み込み言語まで、Leanの拡張メカニズムの概要を提供しています。
- * [Functional Programming in Lean](https://lean-ja.github.io/fp-lean-ja/) は再帰に関するジョークが好きな読者には面白いかもしれません。 [^fn3]
+ * [Metaprogramming in Lean 4](https://github.com/arthurpaulino/lean4-metaprogramming-book) は中置演算子や記法などからマクロ・カスタムのタクティク・完全にカスタムな組み込み言語まで、Leanの拡張メカニズムの概要を提供しています。 [^fn4]
+ * [Functional Programming in Lean](https://github.com/s-taiga/fpil-ja) は再帰に関するジョークが好きな読者には面白いかもしれません。 [^fn3]
 
 <!--
 However, the best way to continue learning Lean is to start reading and writing code, consulting the documentation when you get stuck.
@@ -134,6 +134,8 @@ Disclaimer: the author of _Functional Programming in Lean_ is also an author of 
 
 [^fn1]: 日本語訳は https://aconite-ac.github.io/theorem_proving_in_lean4_ja/
 
-[^fn2]: 原文が書かれた当時は `std4` という名前でしたが、改名されたことに合わせて日本語訳の文章を修正しています。
+[^fn4]: 日本語訳は https://s-taiga.github.io/metaprogramming_in_lean4_ja/
 
 [^fn3]: 非再帰版は https://leanprover.github.io/functional_programming_in_lean/
+
+[^fn2]: 原文が書かれた当時は `std4` という名前でしたが、改名されたことに合わせて日本語訳の文章を修正しています。
