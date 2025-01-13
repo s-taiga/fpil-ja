@@ -150,7 +150,7 @@ The inductively-defined predicate `IsThree` states that its argument is three:
 The mechanism used here is just like [indexed families such as `HasCol`](../dependent-types/typed-queries.md#column-pointers), except the resulting type is a proposition that can be proved rather than data that can be used.
 -->
 
-ここで使用されるメカニズムは [`HasCol` のような添字族](../dependent-types/typed-queries.md#column-pointers) と同様ですが、結果として得られる型は利用可能なデータではなく証明可能な命題です。
+ここで使用されるメカニズムは [`HasCol` のような添字付けられた型の族](../dependent-types/typed-queries.md#column-pointers) と同様ですが、結果として得られる型は利用可能なデータではなく証明可能な命題です。
 
 <!--
 Using this predicate, it is possible to prove that three is indeed three:
@@ -226,7 +226,7 @@ In an ordinary function definition, dependent pattern matching on the assumption
 The tactic equivalent of dependent pattern matching is `cases`, which has a syntax similar to that of `induction`:
 -->
 
-このエラーは `n + 2` が `5` と定義上等しくないために起こります。通常の関数定義では、仮定 `three` への依存パターンマッチによって `n` を `3` に絞り込むことができます。依存パターンマッチに相当するタクティクは `cases` で、これは `induction` と似た構文を持っています：
+このエラーは `n + 2` が `5` と definitionally equal ではないために起こります。通常の関数定義では、仮定 `three` への依存パターンマッチによって `n` を `3` に絞り込むことができます。依存パターンマッチに相当するタクティクは `cases` で、これは `induction` と似た構文を持っています：
 
 ```leantac
 {{#example_in Examples/ProgramsProofs/Arrays.lean threePlusTwoFive2}}
@@ -244,7 +244,7 @@ In the remaining case, `n` has been refined to `3`:
 Because `3 + 2` is definitionally equal to `5`, the constructor is now applicable:
 -->
 
-`3 + 2` は `5` に定義上等しいため、これでこのコンストラクタを適用可能です：
+`3 + 2` は `5` に definitionally equal であるため、これでこのコンストラクタを適用可能です：
 
 ```leantac
 {{#example_decl Examples/ProgramsProofs/Arrays.lean threePlusTwoFive3}}

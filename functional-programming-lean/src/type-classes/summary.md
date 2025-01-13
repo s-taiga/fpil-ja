@@ -110,7 +110,7 @@ For instance, the Boolean equality class `BEq` is usually implemented by first c
 Instances for these classes can be created _automatically_.
 -->
 
-多くの型クラスはとても標準的な実装を持っています。例えば、真偽値の同値クラス `BEq` は通常、まず両方の引数が同じコンストラクタでビルドされているかどうかをチェックし、次にすべての引数が等しいかどうかをチェックすることで実装されています。これらのクラスのインスタンスは **自動的に** 生成されます。
+多くの型クラスはとても標準的な実装を持っています。例えば、 boolean equality クラス `BEq` は通常、まず両方の引数が同じコンストラクタでビルドされているかどうかをチェックし、次にすべての引数が等しいかどうかをチェックすることで実装されています。これらのクラスのインスタンスは **自動的に** 生成されます。
 
 <!--
 When defining an inductive type or a structure, a `deriving` clause at the end of the declaration will cause instances to be created automatically.

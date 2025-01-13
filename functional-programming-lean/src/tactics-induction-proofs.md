@@ -470,7 +470,7 @@ The base case is true because mirroring `leaf` results in `leaf`, so the left an
 This can be expressed by using `simp` with instructions to unfold `BinTree.mirror`:
 -->
 
-基本ケースは真です。というのも `leaf` をコピーすると `leaf` になり、式の左右は定義上同値になるからです。これは `simp` を使って `BinTree.mirror` を展開する命令で表現できます：
+基本ケースは真です。というのも `leaf` をコピーすると `leaf` になり、式の左右は definitionally equal になるからです。これは `simp` を使って `BinTree.mirror` を展開する命令で表現できます：
 
 ```leantac
 {{#example_in Examples/Induction.lean mirror_count_1}}

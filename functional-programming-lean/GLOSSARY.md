@@ -350,3 +350,7 @@
 | version                              | バージョン                                                            |                                                                                                                                                |
 | whitespace character                 | 空白文字                                                              |                                                                                                                                                |
 | yield                                | 出力する、表示する、返す                                              |                                                                                                                                                |
+
+# 英語表現をそのまま用いている単語
+
+| definitional equality, definitionally equal, boolean equality, propositional equality | 型理論由来の用語であり、定訳は無いため |

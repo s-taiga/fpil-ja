@@ -2,7 +2,7 @@
 # Indexed Families
 -->
 
-# 添字族
+# 添字付けられた型の族
 
 <!--
 Polymorphic inductive types take type arguments.
@@ -18,7 +18,7 @@ Inductive types in which the arguments to the type vary based on the choice of c
 The "hello world" of indexed families is a type of lists that contains the length of the list in addition to the type of entries, conventionally referred to as "vectors":
 -->
 
-しかし、帰納型の引数はすべてのコンストラクタで同じである必要はありません。コンストラクタの選択によって型への引数が変化するような帰納型は **添字族** （indexed family）と呼ばれ、変化する引数は **添字** （index）と呼ばれます。添字族における「hello world」的教材は、要素の型に加えてリストの長さを含むリスト型であり、慣習的に「ベクトル」と呼ばれています：
+しかし、帰納型の引数はすべてのコンストラクタで同じである必要はありません。コンストラクタの選択によって型への引数が変化するような帰納型は **添字付けられた型の族** （indexed family）と呼ばれ、変化する引数は **添字** （index）と呼ばれます。添字付けられた型の族における「hello world」的教材は、要素の型に加えてリストの長さを含むリスト型であり、慣習的に「ベクトル」と呼ばれています：
 
 ```lean
 {{#example_decl Examples/DependentTypes.lean Vect}}
@@ -57,7 +57,7 @@ In some sense, an indexed family is not a type; rather, it is a collection of re
 Choosing the index `5` for `Vect` means that only the constructor `cons` is available, and choosing the index `0` means that only `nil` is available.
 -->
 
-添字族は異なる添字の値によって使用できるコンストラクタを変えることができることから、型の **族** と呼ばれます。ある意味では、添字族は型ではありません；むしろ、関連した型のあつまりであり、添字の選択によってそのあつまりから型を選びます。 `Vect` において添字 `5` を選ぶことによってコンストラクタは `const` のみ、また添字 `0` を選ぶことによって `nil` のみがそれぞれ利用可能となります。
+添字付けられた型の族は異なる添字の値によって使用できるコンストラクタを変えることができることから、型の **族** と呼ばれます。ある意味では、添字付けられた型の族は型ではありません；むしろ、関連した型のあつまりであり、添字の選択によってそのあつまりから型を選びます。 `Vect` において添字 `5` を選ぶことによってコンストラクタは `const` のみ、また添字 `0` を選ぶことによって `nil` のみがそれぞれ利用可能となります。
 
 <!--
 If the index is not yet known (e.g. because it is a variable), then no constructor can be used until it becomes known.
@@ -108,7 +108,7 @@ Just as in the example type errors, the variable `n` could stand for either, dep
 The solution is to use pattern matching to consider both of the possible cases:
 -->
 
-添字族を扱う際に、コンストラクタはLeanがそのコンストラクタの添字が期待される型の添字と一致することを確認できた場合にのみ適用可能です。しかし、どちらのコンストラクタも `n` にマッチする添字を持っていません。`nil` は `Nat.zero` に、`cons` は `Nat.succ` にマッチします。型エラーの例のように、変数 `n` は関数に引数として渡される `Nat` によってこのどちらかを表す可能性があります。そこで解決策としてパターンマッチを使用してありうる両方のケースを考慮することができます：
+添字付けられた型の族を扱う際に、コンストラクタはLeanがそのコンストラクタの添字が期待される型の添字と一致することを確認できた場合にのみ適用可能です。しかし、どちらのコンストラクタも `n` にマッチする添字を持っていません。`nil` は `Nat.zero` に、`cons` は `Nat.succ` にマッチします。型エラーの例のように、変数 `n` は関数に引数として渡される `Nat` によってこのどちらかを表す可能性があります。そこで解決策としてパターンマッチを使用してありうる両方のケースを考慮することができます：
 
 ```lean
 {{#example_in Examples/DependentTypes.lean replicateMatchOne}}
