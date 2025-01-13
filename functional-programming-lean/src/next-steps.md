@@ -116,7 +116,7 @@ For programmers who are interested in learning to use indexed families and depen
 Like Coq, Idris is a close cousin of Lean, though it lacks tactics.
 -->
 
-プログラムを構造化するために添字族と依存型を使うことを学びたいと思っているプログラマにとって、Edwin Bradyの [_Type Driven Development with Idris_](https://www.manning.com/books/type-driven-development-with-idris) は素晴らしい入門書となります。Coqと同様、IdrisはLeanの親戚ですが、タクティクはありません。
+プログラムを構造化するために添字付けられた型の族と依存型を使うことを学びたいと思っているプログラマにとって、Edwin Bradyの [_Type Driven Development with Idris_](https://www.manning.com/books/type-driven-development-with-idris) は素晴らしい入門書となります。Coqと同様、IdrisはLeanの親戚ですが、タクティクはありません。
 
 <!--
 ## Understanding Dependent Types

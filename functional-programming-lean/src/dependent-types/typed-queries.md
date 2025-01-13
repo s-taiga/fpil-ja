@@ -10,7 +10,7 @@ They can be used to write a library of HTML constructors that don't permit gener
 This section describes an encoding of a subset of relational algebra in Lean using indexed families, as a simpler demonstration of techniques that can be used to build a more powerful database query language.
 -->
 
-添字族はほかの言語に似せたAPIを構築する際に非常に有用です。無効なHTMLの生成を許可しないHTML構築のライブラリを記述したり、設定ファイル形式の特定のルールをエンコードしたり、複雑なビジネス制約をモデル化したりするのに使用できます。この節では、このテクニックがより強力なデータベースクエリ言語を構築するために使えることの簡単なデモンストレーションとして、添字族を使用したLeanにおける関係代数のサブセットのエンコードについて説明します。
+添字付けられた型の族はほかの言語に似せたAPIを構築する際に非常に有用です。無効なHTMLの生成を許可しないHTML構築のライブラリを記述したり、設定ファイル形式の特定のルールをエンコードしたり、複雑なビジネス制約をモデル化したりするのに使用できます。この節では、このテクニックがより強力なデータベースクエリ言語を構築するために使えることの簡単なデモンストレーションとして、添字付けられた型の族を使用したLeanにおける関係代数のサブセットのエンコードについて説明します。
 
 <!--
 This subset uses the type system to enforce requirements such as disjointness of field names, and it uses type-level computation to reflect the schema into the types of values that are returned from a query.
@@ -236,7 +236,7 @@ For example, a query that returns mountains with an elevation greater than 1000 
 One way to indicate that a column is contained in a schema is to provide a pointer directly to it, and defining the pointer as an indexed family makes it possible to rule out invalid pointers.
 -->
 
-クエリの中にはスキーマが特定のカラムを含んでいる場合にのみ意味を為すものがあります。例えば、標高が1000mを超える山を返すクエリは、整数からなるカラム `"elevation"` を持つスキーマでのみ意味を持ちます。あるカラムがスキーマに含まれていることを示す1つの方法は、そのカラムへのポインタを直接提供し、無効なポインタを除外するような添字族としてポインタを定義することです。
+クエリの中にはスキーマが特定のカラムを含んでいる場合にのみ意味を為すものがあります。例えば、標高が1000mを超える山を返すクエリは、整数からなるカラム `"elevation"` を持つスキーマでのみ意味を持ちます。あるカラムがスキーマに含まれていることを示す1つの方法は、そのカラムへのポインタを直接提供し、無効なポインタを除外するような添字付けられた型の族としてポインタを定義することです。
 
 <!--
 There are two ways that a column can be present in a schema: either it is at the beginning of the schema, or it is somewhere later in the schema.
@@ -249,7 +249,7 @@ Eventually, if a column is later in a schema, then it will be the beginning of s
 The indexed family `HasCol` is a translation of the specification into Lean code:
 -->
 
-`HasCol` 添字族はこの仕様をLeanの実装に翻訳したものです：
+`HasCol` 添字付けられた型の族はこの仕様をLeanの実装に翻訳したものです：
 
 ```lean
 {{#example_decl Examples/DependentTypes/DB.lean HasCol}}
@@ -317,7 +317,7 @@ In the second role, the constructors are used like `Nat`s to find data in a coll
 Programming with indexed families often requires the ability to switch fluently between both perspectives.
 -->
 
-1つ目の役割である根拠は命題の使われ方と似ています。添字族 `HasCol` の定義は与えられたカラムが存在する根拠としての要点の指定として読むことができます。しかし、命題とは異なり、`HasCol` のどのコンストラクタが使われたかは重要です。2つ目の役割として、コンストラクタは `Nat` のようにコレクション内のデータを見つけるために使用されます。添字族を使用したプログラミングでは、両方の視点を流暢に切り替える能力が必要である場合がよくあります。
+1つ目の役割である根拠は命題の使われ方と似ています。添字付けられた型の族 `HasCol` の定義は与えられたカラムが存在する根拠としての要点の指定として読むことができます。しかし、命題とは異なり、`HasCol` のどのコンストラクタが使われたかは重要です。2つ目の役割として、コンストラクタは `Nat` のようにコレクション内のデータを見つけるために使用されます。添字付けられた型の族を使用したプログラミングでは、両方の視点を流暢に切り替える能力が必要である場合がよくあります。
 
 <!--
 ### Subschemas
@@ -332,7 +332,7 @@ In order for projection to make sense, the smaller schema must be a subschema of
 Just as `HasCol` makes it possible to write a single-column lookup in a row that cannot fail, a representation of the subschema relationship as an indexed family makes it possible to write a projection function that cannot fail.
 -->
 
-関係代数における重要な操作の1つとして、テーブルや行をより小さなスキーマにする **射影** （projection）があります。この小さくなったスキーマに含まれないすべてのカラムは忘れ去られます。射影が意味を持つためには、小さくなったスキーマは大きいスキーマの副スキーマでなければなりません。副スキーマとは小さくなったスキーマのすべてのカラムが大きいスキーマに存在していることを指します。`HasCol` によって失敗することのない行からの単一カラムの検索を書くことができるように、副スキーマの関係を添字族として表現することで失敗することのない射影関数を書くことができます。
+関係代数における重要な操作の1つとして、テーブルや行をより小さなスキーマにする **射影** （projection）があります。この小さくなったスキーマに含まれないすべてのカラムは忘れ去られます。射影が意味を持つためには、小さくなったスキーマは大きいスキーマの副スキーマでなければなりません。副スキーマとは小さくなったスキーマのすべてのカラムが大きいスキーマに存在していることを指します。`HasCol` によって失敗することのない行からの単一カラムの検索を書くことができるように、副スキーマの関係を添字付けられた型の族として表現することで失敗することのない射影関数を書くことができます。
 
 <!--
 The ways in which one schema can be a subschema of another can be defined as an indexed family.
@@ -342,7 +342,7 @@ If the smaller schema has a column, then that column must be in the bigger schem
 This is represented by the constructor `cons`.
 -->
 
-あるスキーマが別のスキーマの副スキーマになる方法は、添字族として定義できます。基本的な考え方は、小さい方のスキーマのカラムがすべて大きい方に含まれている場合に小さい方が大きい方の副スキーマであるというものです。もし小さい方のスキーマが空であれば、これは確実に大きい方の副スキーマとなります。これをコンストラクタ `nil` で表現します。もし小さい方のスキーマにカラムがある場合、そのカラムが大きい方に存在し、かつそれを除いたすべてのカラムからなる副スキーマも大きい方の副スキーマでなければなりません。これはコンストラクタ `cons` で表現されます。
+あるスキーマが別のスキーマの副スキーマになる方法は、添字付けられた型の族として定義できます。基本的な考え方は、小さい方のスキーマのカラムがすべて大きい方に含まれている場合に小さい方が大きい方の副スキーマであるというものです。もし小さい方のスキーマが空であれば、これは確実に大きい方の副スキーマとなります。これをコンストラクタ `nil` で表現します。もし小さい方のスキーマにカラムがある場合、そのカラムが大きい方に存在し、かつそれを除いたすべてのカラムからなる副スキーマも大きい方の副スキーマでなければなりません。これはコンストラクタ `cons` で表現されます。
 
 ```lean
 {{#example_decl Examples/DependentTypes/DB.lean Subschema}}
@@ -566,7 +566,7 @@ Because expressions can refer to columns from the database, but different sub-ex
 Additionally, each expression has a type, and these vary, making it an index:
 -->
 
-今回のクエリ言語の例ではSQLの `WHERE` 節で記述するものと同じような式を持ちます。式は添字族 `DBExpr` で表現されます。式はデータベースのカラムを参照することができますが、式内の異なる部分式はすべて同じスキーマを持つため、`DBExpr` はスキーマをパラメータとして受け取ります。さらに、各式には型があり、それが変化することで添字になります：
+今回のクエリ言語の例ではSQLの `WHERE` 節で記述するものと同じような式を持ちます。式は添字付けられた型の族 `DBExpr` で表現されます。式はデータベースのカラムを参照することができますが、式内の異なる部分式はすべて同じスキーマを持つため、`DBExpr` はスキーマをパラメータとして受け取ります。さらに、各式には型があり、それが変化することで添字になります：
 
 ```lean
 {{#example_decl Examples/DependentTypes/DB.lean DBExpr}}
@@ -704,7 +704,7 @@ The last operator is not strictly necessary, but it makes the language more conv
 Once again, queries are represented by an indexed family:
 -->
 
-繰り返しになりますが、クエリは添字族で表現されます：
+繰り返しになりますが、クエリは添字付けられた型の族で表現されます：
 
 ```lean
 {{#example_decl Examples/DependentTypes/DB.lean Query}}
@@ -875,7 +875,7 @@ One difficulty in programming with indexed families is that when performance mat
 It takes a very careful, often brittle, design to eliminate these kinds of "re-indexing" functions.
 -->
 
-この関数は引数の **型** を変更しますが、実際の戻り値には元の引数とまったく同じデータを含みます。実行時においては、`renameRow` はただ遅いだけの恒等関数でしかありません。添字族を使用したプログラミングの難しさの1つは、パフォーマンスが重要な場合にこの種の操作が邪魔になることです。このような「再インデックス」関数を排除するには、とても注意深く、時に脆い設計が必要です。
+この関数は引数の **型** を変更しますが、実際の戻り値には元の引数とまったく同じデータを含みます。実行時においては、`renameRow` はただ遅いだけの恒等関数でしかありません。添字付けられた型の族を使用したプログラミングの難しさの1つは、パフォーマンスが重要な場合にこの種の操作が邪魔になることです。このような「再インデックス」関数を排除するには、とても注意深く、時に脆い設計が必要です。
 
 <!--
 ### Prefixing Column Names
@@ -1039,7 +1039,7 @@ Unfortunately, it is beyond the scope of this book to provide a description of i
 An indexed family such as `Query` is probably best as the core of a typed database interaction library, rather than its user interface.
 -->
 
-Leanのマクロシステムには、クエリに便利な構文を提供するだけでなく、エラーメッセージが有用になるようアレンジするために必要なものもすべて含まれています。残念ながら、Leanマクロを使った言語の実装について説明するのは本書の範囲を超えています。`Query` のような添字族はユーザインタフェースというよりは、型付きデータベースの対話ライブラリのコアとして使うことがベストでしょう。
+Leanのマクロシステムには、クエリに便利な構文を提供するだけでなく、エラーメッセージが有用になるようアレンジするために必要なものもすべて含まれています。残念ながら、Leanマクロを使った言語の実装について説明するのは本書の範囲を超えています。`Query` のような添字付けられた型の族はユーザインタフェースというよりは、型付きデータベースの対話ライブラリのコアとして使うことがベストでしょう。
 
 <!--
 ## Exercises

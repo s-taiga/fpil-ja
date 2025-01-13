@@ -46,7 +46,7 @@ This principle is called _function extensionality_.
 Function extensionality is exactly the reason why `NonTail.sum` equals `Tail.sum`: they both sum lists of numbers.
 -->
 
-`NonTail.sum` と `Tail.sum` は定義上同値ではないため、ここでは `rfl` タクティクを使うことはできません。しかし、関数が等しいと言えるのは定義上の同値だけではありません。同じ入力に対して同じ出力を生成することを証明することで、2つの関数が等しいことを証明することも可能です。言い換えると、\\( f = g \\) はすべての可能な入力 \\( x \\) に対して \\( f(x) = g(x) \\) を示すことで証明できます。この原理は **関数の外延性** （function extensionality）と呼ばれます。関数の外延性はまさに `NonTail.sum` が `Tail.sum` と等しいことを説明します：どちらも数値のリストを合計を計算するからです。
+`NonTail.sum` と `Tail.sum` は definitionally equal ではないため、ここでは `rfl` タクティクを使うことはできません。しかし、関数が等しいと言えるのは definitional equality だけではありません。同じ入力に対して同じ出力を生成することを証明することで、2つの関数が等しいことを証明することも可能です。言い換えると、\\( f = g \\) はすべての可能な入力 \\( x \\) に対して \\( f(x) = g(x) \\) を示すことで証明できます。この原理は **関数の外延性** （function extensionality）と呼ばれます。関数の外延性はまさに `NonTail.sum` が `Tail.sum` と等しいことを説明します：どちらも数値のリストを合計を計算するからです。
 
 <!--
 In Lean's tactic language, function extensionality is invoked using `funext`, followed by a name to be used for the arbitrary argument.
@@ -274,7 +274,7 @@ Using the `intro` tactic in the `nil` case removes the `∀ (n : Nat),` from the
 Both sides of this propositional equality are definitionally equal to `n`, so `rfl` suffices:
 -->
 
-この命題の同値の両辺は、定義上 `n` に同値であるため、`rfl` で十分です：
+この propositional equality の両辺は、`n` に definitionally equal であるため、`rfl` で十分です：
 
 ```leantac
 {{#example_in Examples/ProgramsProofs/TCO.lean nonTailEqHelper3}}

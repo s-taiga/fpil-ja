@@ -85,11 +85,7 @@ Here, `n✝` represents the `Nat` that is one less than the argument `n`.
 
 `n` の後にある **ダガー** と呼ばれる記号はLeanが内部的に考案した名前を示すために使用されます。コンストラクタ `cons` の添字は `n + 1` であり `Vect` の後続のリストの長さが `n` であることから、裏では最初の `Vect` に対して暗黙的に行われたパターンマッチによって、最初の `Nat` の値が絞り込まれます。ここで、`n✝` は引数 `n` より1つ小さい `Nat` を表します。
 
-<!--
 ## Definitional Equality
--->
-
-## 定義上の同値
 
 <!--
 In the definition of `plusL`, there is a pattern case `0, k => k`.
@@ -161,7 +157,7 @@ It can also perform computation while checking whether two types are equivalent 
 This property is called _definitional equality_, and it is subtle.
 -->
 
-何が起こっているかを理解する鍵となるのは、Leanが型チェックをする際に行うことはただ `abbrev` を展開するだけではないということです。それだけでなく、片方の型の任意の式がもう片方の型を期待するコンテキストで使われているような2つの型が等しいかどうかのチェックをしながら計算を行うこともできます。この性質は **定義上の同値** （definitional equality）と呼ばれ、とらえがたいものです。
+何が起こっているかを理解する鍵となるのは、Leanが型チェックをする際に行うことはただ `abbrev` を展開するだけではないということです。それだけでなく、片方の型の任意の式がもう片方の型を期待するコンテキストで使われているような2つの型が等しいかどうかのチェックをしながら計算を行うこともできます。この性質は _definitional equality_ と呼ばれ、とらえがたいものです。
 
 <!--
 Certainly, two types that are written identically are considered to be definitionally equal—`Nat` and `Nat` or `List String` and `List String` should be considered equal.
@@ -171,7 +167,7 @@ Because types can contain ordinary data, definitional equality must also describ
 Uses of the same constructors are equal, so `0` equals `0` and `[5, 3, 1]` equals `[5, 3, 1]`.
 -->
 
-当たり前ですが、同じように書かれた2つの型は定義上同値です。例えば、`Nat` は `Nat` と、`List String` は `List String` と等しいと見なされるべきです。異なるデータ型から構築された任意の2つの具体的な型は等しくありません。そのため `List Nat` は `Int` と等しくありません。さらに、内部的な名前の変更だけが異なる型は等しいです。そのため、`(n : Nat) → Vect String n` は `(k : Nat) → Vect String k` と同じです。型は通常のデータを含むことができるため、定義上の同値はデータが等しい場合についても記述しなければなりません。同じコンストラクタの使用は等しいです。そのため、`0` は `0` と、`[5, 3, 1]` は `[5, 3, 1]` と等しくなります。
+当たり前ですが、同じように書かれた2つの型は definitionally equal です。例えば、`Nat` は `Nat` と、`List String` は `List String` と等しいと見なされるべきです。異なるデータ型から構築された任意の2つの具体的な型は等しくありません。そのため `List Nat` は `Int` と等しくありません。さらに、内部的な名前の変更だけが異なる型は等しいです。そのため、`(n : Nat) → Vect String n` は `(k : Nat) → Vect String k` と同じです。型は通常のデータを含むことができるため、definitional equality はデータが等しい場合についても記述しなければなりません。同じコンストラクタの使用は等しいです。そのため、`0` は `0` と、`[5, 3, 1]` は `[5, 3, 1]` と等しくなります。
 
 <!--
 Types contain more than just function arrows, datatypes, and constructors, however.
@@ -184,7 +180,7 @@ In other words, two functions must use _the same algorithm_ that calls _the same
 This is not typically very helpful, so definitional equality of functions is mostly used when the exact same defined function occurs in two types.
 -->
 
-しかし、型に含まれるのは型に含まれるのは関数の矢印、データ型、コンストラクタだけではありません。型には **変数** と **関数** も含まれます。変数の定義上の同値は比較的シンプルです：各変数は自分自身と等しくなります。そのため `(n k : Nat) → Vect Int n` は `(n k : Nat) → Vect Int k` と定義上等しくありません。一方で関数はもっと複雑です。数学では2つの関数が入力と出力の挙動が同じであるときに等しいと見なしますが、それをチェックする効率的なアルゴリズムは無いため、Leanでは定義上同値なボディを持つ `fun` 式を持つ関数は定義上同値であると見なします。言い換えると、2つの関数が定義上同値であるためには **同じアルゴリズム** を使い、**同じ補助関数** を呼ばなければなりません。これは通常あまり役に立たないため、関数の定義上の同値は2つの型に全く同じ定義関数が存在する場合に使用されることがほとんどです。
+しかし、型に含まれるのは型に含まれるのは関数の矢印、データ型、コンストラクタだけではありません。型には **変数** と **関数** も含まれます。変数の definitional equality は比較的シンプルです：各変数は自分自身と等しくなります。そのため `(n k : Nat) → Vect Int n` は `(n k : Nat) → Vect Int k` と definitionally equal ではありません。一方で関数はもっと複雑です。数学では2つの関数が入力と出力の挙動が同じであるときに等しいと見なしますが、それをチェックする効率的なアルゴリズムは無いため、Leanでは definitionally equal なボディを持つ `fun` 式を持つ関数は definitionally equal であると見なします。言い換えると、2つの関数が definitionally equal であるためには **同じアルゴリズム** を使い、**同じ補助関数** を呼ばなければなりません。これは通常あまり役に立たないため、関数の definitional equality は2つの型に全く同じ定義関数が存在する場合に使用されることがほとんどです。
 
 <!--
 When functions are _called_ in a type, checking definitional equality may involve reducing the function call.
@@ -194,7 +190,7 @@ Definitional equality of functions applied to data can be checked first by seein
 If not, the function is called and replaced with its value, and the value can then be checked.
 -->
 
-関数が型の中で **呼ばれた** 場合、定義上の同値のチェックによって関数呼び出しの簡約が発火される場合があります。型 `Vect String (1 + 4)` は、`1 + 4` が `3 + 2` と定義上等しいため、型 `Vect String (3 + 2)` と定義上等しいです。これらの等価性をチェックするには、どちらも `5` に簡約され、コンストラクタのルールが5回使われることで確認できます。データに適用された関数の定義上の同値は、まずそれらがすでに同じであるかのチェックを行います。つまるところ、`["a", "b"] ++ ["c"]` が `["a", "b"] ++ ["c"]` と等しいことのチェックのために簡約する必要はないわけです。等しくなかった場合、関数が呼ばれ、得られた値で置き換えられ、その値がチェックされます。
+関数が型の中で **呼ばれた** 場合、definitional equality のチェックによって関数呼び出しの簡約が発火される場合があります。型 `Vect String (1 + 4)` は、`1 + 4` が `3 + 2` と definitionally equal であるため、型 `Vect String (3 + 2)` と definitionally equal です。これらの等価性をチェックするには、どちらも `5` に簡約され、コンストラクタのルールが5回使われることで確認できます。データに適用された関数の definitional equality は、まずそれらがすでに同じであるかのチェックを行います。つまるところ、`["a", "b"] ++ ["c"]` が `["a", "b"] ++ ["c"]` と等しいことのチェックのために簡約する必要はないわけです。等しくなかった場合、関数が呼ばれ、得られた値で置き換えられ、その値がチェックされます。
 
 <!--
 Not all function arguments are concrete data.
@@ -205,7 +201,7 @@ As seen in the definition of `appendL`, variables with type `Nat` may also be pa
 Indeed, the type `(n : Nat) → Vect String n` is definitionally equal to the type `(n : Nat) → Vect String (Nat.plusL 0 n)`.
 -->
 
-全ての関数の引数が具体的なデータというわけではありません。例えば、型の中には `zero` と `succ` コンストラクタのどちらからも生成されていない `Nat` が含まれることがあります。型 `(n : Nat) → Vect String n` の中で、変数 `n` は `Nat` ですが、この関数が呼ばれるまではこれが **どっちの** `Nat` であるか知ることは不可能です。実際、この関数はまず `0` で呼び、その後で `17` を、それから `33` で呼び出されるかもしれません。`appendL` の定義で見たように、`Nat` 型の変数も `plusL` のような関数に渡すことができます。実際、型 `(n : Nat) → Vect String n` は `(n : Nat) → Vect String (Nat.plusL 0 n)` と定義上等しくなります。
+全ての関数の引数が具体的なデータというわけではありません。例えば、型の中には `zero` と `succ` コンストラクタのどちらからも生成されていない `Nat` が含まれることがあります。型 `(n : Nat) → Vect String n` の中で、変数 `n` は `Nat` ですが、この関数が呼ばれるまではこれが **どっちの** `Nat` であるか知ることは不可能です。実際、この関数はまず `0` で呼び、その後で `17` を、それから `33` で呼び出されるかもしれません。`appendL` の定義で見たように、`Nat` 型の変数も `plusL` のような関数に渡すことができます。実際、型 `(n : Nat) → Vect String n` は `(n : Nat) → Vect String (Nat.plusL 0 n)` と definitionally equal となります。
 
 <!--
 The reason that `n` and `Nat.plusL 0 n` are definitionally equal is that `plusL`'s pattern match examines its _first_ argument.
@@ -214,7 +210,7 @@ This happens because pattern matching gets stuck when it encounters variables.
 Until the actual value of `n` becomes known, there is no way to know which case of `Nat.plusL n 0` should be selected.
 -->
 
-`n` と `Nat.plusL 0 n` が定義上同値である理由は、`plusL` のパターンマッチがその **最初の** 引数を調べるからです。これは問題です：0は足し算の左右どちらともの単位元であるべきであるにもかかわらず、`(n : Nat) → Vect String n` は `(n : Nat) → Vect String (Nat.plusL n 0)` と定義上同値 **ではない** からです。これはパターンマッチが変数に遭遇したことで行き詰ってしまうことで発生します。`n` の実際の値がわかるまで、`Nat.plusL n 0` のどのケースを選択すべきか知るすべはありません。
+`n` と `Nat.plusL 0 n` が definitionally equal である理由は、`plusL` のパターンマッチがその **最初の** 引数を調べるからです。これは問題です：0は足し算の左右どちらともの単位元であるべきであるにもかかわらず、`(n : Nat) → Vect String n` は `(n : Nat) → Vect String (Nat.plusL n 0)` と definitionally equal  **ではない** からです。これはパターンマッチが変数に遭遇したことで行き詰ってしまうことで発生します。`n` の実際の値がわかるまで、`Nat.plusL n 0` のどのケースを選択すべきか知るすべはありません。
 
 <!--
 The same issue appears with the `Row` function in the query example.
@@ -263,7 +259,7 @@ Exposing the internals of a function in a type means that refactoring the expose
 In particular, the fact that `plusL` is used in the type of `appendL` means that the definition of `plusL` cannot be replaced by the otherwise-equivalent `plusR`.
 -->
 
-定義上の同値を使った型の比較は関数定義の内部を含め、定義上同値なものに関連するすべてのものが、依存型と添字族を使うプログラムの **インタフェース** の一部になるということを意味します。型の中に関数の内部を公開するということは、その公開されたプログラムをリファクタリングすることでそれを使用するプログラムが型チェックをしなくなってしまう可能性があるということです。特に、`plusL` が `appendL` の型に使われているということは、`plusL` の定義を `plusR` と同等な他の定義に置き換えることができないということを意味します。
+definitional equality を使った型の比較は関数定義の内部を含め、definitionally equal なものに関連するすべてのものが、依存型と添字付けられた型の族を使うプログラムの **インタフェース** の一部になるということを意味します。型の中に関数の内部を公開するということは、その公開されたプログラムをリファクタリングすることでそれを使用するプログラムが型チェックをしなくなってしまう可能性があるということです。特に、`plusL` が `appendL` の型に使われているということは、`plusL` の定義を `plusR` と同等な他の定義に置き換えることができないということを意味します。
 
 <!--
 ## Getting Stuck on Addition
@@ -303,7 +299,7 @@ However, attempting to place a `Vect α k` type annotation around the first plac
 This error is pointing out that `plusR 0 k` and `k` are _not_ definitionally equal.
 -->
 
-このエラーは `plusR 0 k` と `k` が定義上等しく **ない** ことを指摘しています。
+このエラーは `plusR 0 k` と `k` が definitionally equal  **ではない** ことを指摘しています。
 
 <!--
 This is because `plusR` has the following definition:
@@ -333,13 +329,9 @@ Addition is getting _stuck_ on the variables.
 Getting it unstuck requires [propositional equality](../type-classes/standard-classes.md#equality-and-ordering).
 -->
 
-足し算は変数に **つまって** しまいます。これを解消するには、[命題の同値](../type-classes/standard-classes.md#equality-and-ordering) を使用します。
+足し算は変数に **つまって** しまいます。これを解消するには、[propositional equality](../type-classes/standard-classes.md#equality-and-ordering) を使用します。
 
-<!--
 ## Propositional Equality
--->
-
-## 命題の同値
 
 <!--
 Propositional equality is the mathematical statement that two expressions are equal.
@@ -347,7 +339,7 @@ While definitional equality is a kind of ambient fact that Lean automatically ch
 Once an equality proposition has been proved, it can be used in a program to modify a type, replacing one side of the equality with the other, which can unstick the type checker.
 -->
 
-命題の同値は2つの式が等しいという数学的な文です。定義上の同値はLeanが必要な時に自動的にチェックする一種の曖昧な事実ですが、命題の同値の記述には明示的な証明が必要です。一度命題の同値が証明されると、プログラム内でそれを使って型を修正し、等式を片方の辺を他方のもので置き換えることができ、型チェッカの詰まりを解消できます。
+propositional equality は2つの式が等しいという数学的な文です。definitional equality はLeanが必要な時に自動的にチェックする一種の曖昧な事実ですが、propositional equality の記述には明示的な証明が必要です。一度 propositional equality が証明されると、プログラム内でそれを使って型を修正し、等式を片方の辺を他方のもので置き換えることができ、型チェッカの詰まりを解消できます。
 
 <!--
 The reason why definitional equality is so limited is to enable it to be checked by an algorithm.
@@ -356,7 +348,7 @@ The split between definitional and propositional equality represents a division 
 Similarly, definitional equality is invoked automatically by the type checker, while propositional equality must be specifically appealed to.
 -->
 
-定義上の同値がこのように限定されている理由は、アルゴリズムによるチェックを可能にするためです。命題の同値はより機能が豊かですが、証明と称されるものが実際に証明であることを検証できたとしても、コンピュータは一般的に2つの式が命題的に等しいかどうかをチェックすることができません。定義上の同値と命題の同値の断絶は人間と機械の間の分業を表現しています：退屈極まりない等式は定義上の同値の一部として自動的にチェックされ、人間の頭脳は命題の同値で利用される興味深い問題に向けることができます。同様に、定義上の同値は型チェッカによって自動的に呼び出されますが、命題の同値は明確に呼びかけなければなりません。
+definitional equality がこのように限定されている理由は、アルゴリズムによるチェックを可能にするためです。 propositional equality はより機能が豊かですが、証明と称されるものが実際に証明であることを検証できたとしても、コンピュータは一般的に2つの式が命題的に等しいかどうかをチェックすることができません。definitional equality と propositional equality の断絶は人間と機械の間の分業を表現しています：退屈極まりない等式は definitional equality の一部として自動的にチェックされ、人間の頭脳は propositional equality で利用される興味深い問題に向けることができます。同様に、definitional equality は型チェッカによって自動的に呼び出されますが、propositional equality は明確に呼びかけなければなりません。
 
 <!--
 In [Propositions, Proofs, and Indexing](../props-proofs-indexing.md), some equality statements are proved using `simp`.
@@ -367,7 +359,7 @@ A simpler tactic called `rfl` specifically uses definitional equality to prove p
 The name `rfl` is short for _reflexivity_, which is the property of equality that states that everything equals itself.
 -->
 
-[「命題・証明・リストの添え字アクセス」](../props-proofs-indexing.md) にて、いくつかの同値についての文が `simp` を使って証明されました。これらの等式はすべて、命題の同値がすでに定義上の同値になっているものです。一般的に、命題の同値についての文を証明するには、まずそれらを定義上の同値か既存の証明済みの等式に近い形にし、`simp` のようなツールを使って単純化されたケースを処理します。`simp` タクティクは非常に強力です：裏では、高速で自動化された多くのツールを使って証明を構築します。これよりはシンプルな `rfl` と呼ばれるタクティクは命題の同値を証明するために定義上の同値を使用します。`rfl` という名前は **反射律** （reflexivity）の略であり、すべてのものはそれ自身に等しいという同値についての性質です。
+[「命題・証明・リストの添え字アクセス」](../props-proofs-indexing.md) にて、いくつかの同値についての文が `simp` を使って証明されました。これらの等式はすべて、propositional equality がすでに definitional equality になっているものです。一般的に、propositional equality についての文を証明するには、まずそれらを definitional equality か既存の証明済みの等式に近い形にし、`simp` のようなツールを使って単純化されたケースを処理します。`simp` タクティクは非常に強力です：裏では、高速で自動化された多くのツールを使って証明を構築します。これよりはシンプルな `rfl` と呼ばれるタクティクは propositional equality を証明するために definitional equality を使用します。`rfl` という名前は **反射律** （reflexivity）の略であり、すべてのものはそれ自身に等しいという同値についての性質です。
 
 <!--
 Unsticking `appendR` requires a proof that `k = Nat.plusR 0 k`, which is not a definitional equality because `plusR` is stuck on the variable in its second argument.
@@ -375,7 +367,7 @@ To get it to compute, the `k` must become a concrete constructor.
 This is a job for pattern matching.
 -->
 
-`appendR` の詰まりを解消するには、`k = Nat.plusR 0 k` という証明が必要ですが、これは `plusR` が第2引数の変数に着目しているため定義上の同値ではないのでした。これを計算させるためには `k` を具体的なコンストラクタにしなければなりません。これはパターンマッチの仕事です。
+`appendR` の詰まりを解消するには、`k = Nat.plusR 0 k` という証明が必要ですが、これは `plusR` が第2引数の変数に着目しているため definitional equality ではないのでした。これを計算させるためには `k` を具体的なコンストラクタにしなければなりません。これはパターンマッチの仕事です。
 
 <!--
 In particular, because `k` could be _any_ `Nat`, this task requires a function that can return evidence that `k = Nat.plusR 0 k` for _any_ `k` whatsoever.
@@ -399,7 +391,7 @@ Having refined `k` to `0` via pattern matching, the first placeholder stands for
 The `rfl` tactic takes care of it, leaving only the second placeholder:
 -->
 
-パターンマッチによって `k` を `0` に絞り込むと、最初のプレースホルダは定義上成立する文の根拠となります。`rfl` タクティクはこれを処理し、残るは2番目のプレースホルダのみとなります：
+パターンマッチによって `k` を `0` に絞り込むと、最初のプレースホルダは definitionally に成立する文の根拠となります。`rfl` タクティクはこれを処理し、残るは2番目のプレースホルダのみとなります：
 
 ```lean
 {{#example_in Examples/DependentTypes/Pitfalls.lean plusR_zero_left3}}
@@ -411,7 +403,7 @@ The expression `{{#example_in Examples/DependentTypes/Pitfalls.lean plusRStep}}`
 This means that the goal could also be written `k + 1 = Nat.plusR 0 k + 1`:
 -->
 
-2番目のプレースホルダは少し厄介です。式 `{{#example_in Examples/DependentTypes/Pitfalls.lean plusRStep}}` は `{{#example_out Examples/DependentTypes/Pitfalls.lean plusRStep}}` と定義上同値です。これは、ゴールが `k + 1 = Nat.plusR 0 k + 1` とも書けることを意味します：
+2番目のプレースホルダは少し厄介です。式 `{{#example_in Examples/DependentTypes/Pitfalls.lean plusRStep}}` は `{{#example_out Examples/DependentTypes/Pitfalls.lean plusRStep}}` と definitionally equal です。これは、ゴールが `k + 1 = Nat.plusR 0 k + 1` とも書けることを意味します：
 
 ```lean
 {{#example_in Examples/DependentTypes/Pitfalls.lean plusR_zero_left4}}
@@ -441,7 +433,7 @@ Given an equality proof as its first argument and some other expression as its s
 In other words, the following definition contains no type errors:
 -->
 
-命題の同値は右向きの三角形の演算子 `▸` を使ってプログラムに導入することができます。同値の証明を第1引数に、他の式を第2引数に与えることで、この演算子は第2引数の型において等式の左辺のインスタンスを右辺の等式に置き換えます。つまり、以下の定義には型エラーがありません：
+ propositional equality は右向きの三角形の演算子 `▸` を使ってプログラムに導入することができます。同値の証明を第1引数に、他の式を第2引数に与えることで、この演算子は第2引数の型において等式の左辺のインスタンスを右辺の等式に置き換えます。つまり、以下の定義には型エラーがありません：
 
 ```lean
 {{#example_in Examples/DependentTypes/Pitfalls.lean appendRsubst}}
@@ -496,7 +488,7 @@ The skeleton of the proof is very similar to that of `plusR_zero_left`:
 The remaining case's type is definitionally equal to `Nat.plusR (n + 1) k + 1 = Nat.plusR n (k + 1) + 1`, so it can be solved with `congrArg`, just as in `plusR_zero_left`:
 -->
 
-残ったケースの型は `Nat.plusR (n + 1) k + 1 = Nat.plusR n (k + 1) + 1` と定義上同値であるため、`plusR_zero_left` と同様に `congrArg` で解くことができます：
+残ったケースの型は `Nat.plusR (n + 1) k + 1 = Nat.plusR n (k + 1) + 1` と definitionally equal であるため、`plusR_zero_left` と同様に `congrArg` で解くことができます：
 
 ```output error
 {{#example_out Examples/DependentTypes/Pitfalls.lean plusR_succ_left_2}}
@@ -543,7 +535,7 @@ For example, in the `nil` case in a `match` expression on a `Vect`, the length s
 Definitional equality can be very convenient, because it is always active and does not need to be invoked explicitly.
 -->
 
-添字族には重要な特性があります：これらへのパターンマッチは定義上の同値に影響を与えます。例えば、`Vect` に対する `Match` 式で `nil` のケースにおいて、長さは単純に `0` に **なります** 。定義上の同値はとても便利です。というのもこれはいつでも有効であり、明示的に呼び出す必要がないからです。
+添字付けられた型の族には重要な特性があります：これらへのパターンマッチは definitional equality に影響を与えます。例えば、`Vect` に対する `Match` 式で `nil` のケースにおいて、長さは単純に `0` に **なります** 。definitional equality はとても便利です。というのもこれはいつでも有効であり、明示的に呼び出す必要がないからです。
 
 <!--
 However, the use of definitional equality with dependent types and pattern matching has serious software engineering drawbacks.
@@ -558,7 +550,7 @@ It is often necessary to change early definitions in a system when the exposed r
 The alternative is to litter the program with appeals to equality proofs, but these can become quite unwieldy.
 -->
 
-しかし、依存型とパターンマッチによる定義上の同値の使用にはソフトウェア工学的に重大な欠点があります。まず第一に、関数は型の中で使用する用として特別に書かなければならず、型の中で便利に使用される関数では最も効率的なアルゴリズムを使用していない可能性があります。一度型の中で関数が使用されて公開されると、その実装はインタフェースの一部となり、将来のリファクタリングが困難になります。第二に、定義上の同値は時間がかかることがあります。2つの式が定義上同値であるかどうかをチェックするよう求められた時で問題の関数が複雑で抽象化のレイヤーが多い場合、Leanは大量のコードを実行する必要がある可能性が発生します。第三に、定義上の同値が失敗した時に得られるエラーメッセージは関数の内部的な用語で表現されるため、いつでも理解しやすいとは限りません。エラーメッセージに含まれる式の出所を理解するのは必ずしも容易ではありません。最後に、添字族と依存型関数のあつまりに自明でない不変量をエンコードすることはしばしば脆弱になります。関数の簡約についての挙動の公開によって便利な定義上の同値を提供しないことが判明した際に、システムの初期の定義を変更しなければならないことがよくあります。別の方法として、等式の証明の要求をプログラムにちりばめることもできますが、これは非常に扱いにくくなる可能性があります。
+しかし、依存型とパターンマッチによる definitional equality の使用にはソフトウェア工学的に重大な欠点があります。まず第一に、関数は型の中で使用する用として特別に書かなければならず、型の中で便利に使用される関数では最も効率的なアルゴリズムを使用していない可能性があります。一度型の中で関数が使用されて公開されると、その実装はインタフェースの一部となり、将来のリファクタリングが困難になります。第二に、definitional equality は時間がかかることがあります。2つの式が definitionally equal であるかどうかをチェックするよう求められた時で問題の関数が複雑で抽象化のレイヤーが多い場合、Leanは大量のコードを実行する必要がある可能性が発生します。第三に、definitional equality が失敗した時に得られるエラーメッセージは関数の内部的な用語で表現されるため、いつでも理解しやすいとは限りません。エラーメッセージに含まれる式の出所を理解するのは必ずしも容易ではありません。最後に、添字付けられた型の族と依存型関数のあつまりに自明でない不変量をエンコードすることはしばしば脆弱になります。関数の簡約についての挙動の公開によって便利な definitional equality を提供しないことが判明した際に、システムの初期の定義を変更しなければならないことがよくあります。別の方法として、等式の証明の要求をプログラムにちりばめることもできますが、これは非常に扱いにくくなる可能性があります。
 
 <!--
 In idiomatic Lean code, indexed datatypes are not used very often.
@@ -568,7 +560,7 @@ As befits an interactive theorem prover, Lean has been designed to make explicit
 Generally speaking, this approach should be preferred in most cases.
 -->
 
-慣用的なLeanのコードでは、添字族はあまり使われません。その代わりに、部分型と明示的な命題を使用して重要な不変性を強制することが一般的です。このアプローチでは明示的な証明が多く、定義上の同値に訴えることはほとんどありません。対話型の定理証明器にふさわしく、Leanは明示的な証明を便利にするように設計されています。一般的に、ほとんどの場合においてこのアプローチが望ましいです。
+慣用的なLeanのコードでは、添字付けられた型の族はあまり使われません。その代わりに、部分型と明示的な命題を使用して重要な不変性を強制することが一般的です。このアプローチでは明示的な証明が多く、definitional equality に訴えることはほとんどありません。対話型の定理証明器にふさわしく、Leanは明示的な証明を便利にするように設計されています。一般的に、ほとんどの場合においてこのアプローチが望ましいです。
 
 <!--
 However, understanding indexed families of datatypes is important.
@@ -580,7 +572,7 @@ Also, indexed datatypes are sometimes exactly the right tool for the job.
 Fluency in their use is an important part of knowing when to use them.
 -->
 
-しかし、データ型の添字族を理解することは重要です。`plusR_zero_left` や `plusR_succ_left` などの再帰関数は、実は **数学的帰納法による証明** （proofs by mathematical induction）です。再帰の基本ケースは帰納法の基本ケースに対応し、再帰呼び出しは帰納法の仮定に訴えることを表しています。より一般的には、Leanにおける新しい命題はしばしば帰納的な根拠の型として定義され、これらの帰納型は通常は添字を持ちます。定理を証明するプロセスはこの節の証明と同じようなプロセスで、実際にはこれらの型を持つ式を裏で構築しています。また、添字を持つデータ型はまさにその仕事に適したツールであることもあります。添字付きのデータ型の使い方を熟知することは、どのような場合に添字付きのデータ型を使うべきか知るための重要な要素です。
+しかし、データ型の添字付けられた型の族を理解することは重要です。`plusR_zero_left` や `plusR_succ_left` などの再帰関数は、実は **数学的帰納法による証明** （proofs by mathematical induction）です。再帰の基本ケースは帰納法の基本ケースに対応し、再帰呼び出しは帰納法の仮定に訴えることを表しています。より一般的には、Leanにおける新しい命題はしばしば帰納的な根拠の型として定義され、これらの帰納型は通常は添字を持ちます。定理を証明するプロセスはこの節の証明と同じようなプロセスで、実際にはこれらの型を持つ式を裏で構築しています。また、添字を持つデータ型はまさにその仕事に適したツールであることもあります。添字付きのデータ型の使い方を熟知することは、どのような場合に添字付きのデータ型を使うべきか知るための重要な要素です。
 
 <!--
 ## Exercises

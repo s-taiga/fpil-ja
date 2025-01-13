@@ -73,7 +73,7 @@ Defining a custom universe has a number of advantages over using the types direc
 ## Indexed Families
 -->
 
-## 添字族
+## 添字付けられた型の族
 
 <!--
 Datatypes can take two separate kinds of arguments: _parameters_ are identical in each constructor of the datatype, while _indices_ may vary between constructors.
@@ -91,7 +91,7 @@ Informing the compiler about the datatype's invariants brings a major benefit: t
 The strategic use of compile-time errors, especially those resulting from underscores, can make it possible to offload some of the programming thought process to Lean, freeing up the programmer's mind to worry about other things.
 -->
 
-添字族によってデータ間の複雑な関係を式にすることができ、すべてコンパイラによってチェックされます。データ型の不変量は直接エンコードすることができ、一時的であってもそれを変更することはできません。コンパイラがデータ型の不変量を知ることには大きな利点があります：コンパイラはプログラマにそれらを満たすために何をすべきかを知らせることができるようになります。コンパイル時のエラー、特にアンダースコアに起因するエラーを戦略的に利用することで、プログラミングの思考プロセスの一部をLeanに委ねることが可能になり、プログラマはほかのことに気を配ることができるようになります。
+添字付けられた型の族によってデータ間の複雑な関係を式にすることができ、すべてコンパイラによってチェックされます。データ型の不変量は直接エンコードすることができ、一時的であってもそれを変更することはできません。コンパイラがデータ型の不変量を知ることには大きな利点があります：コンパイラはプログラマにそれらを満たすために何をすべきかを知らせることができるようになります。コンパイル時のエラー、特にアンダースコアに起因するエラーを戦略的に利用することで、プログラミングの思考プロセスの一部をLeanに委ねることが可能になり、プログラマはほかのことに気を配ることができるようになります。
 
 <!--
 Encoding invariants using indexed families can lead to difficulties.
@@ -105,13 +105,13 @@ Thirdly, running complicated code on large values during type checking can lead 
 Avoiding these slowdowns for complicated programs can require specialized techniques.
 -->
 
-添字族を使って不変量をエンコードすると困難が生じる可能性があります。まず、それぞれの不変量は独自のデータ型を必要とし、そのデータ型は独自のサポートのためのライブラリを必要とします。つまるところ、`List.append` と `Vect.append` は互換性が無いということです。これはコードの重複につながります。第二に、添字族を便利に使用するには、型の中で使用される関数の再帰構造が型チェックされるプログラムの再帰構造と一致する必要があります。添字族によるプログラミングはこのように適切な一致を起こせるように手配する技術なのです。一致のミスの回避のために等式の証明に訴えることは可能ですが、これは難しく、難解な正当化がちりばめられたプログラムとなってしまいます。第三に、型チェック中に大きな値に対して複雑なコードを実行すると、コンパイル時の速度低下を招く可能性があります。複雑なプログラムでこのような速度低下を避けるには特殊なテクニックが必要になります。
+添字付けられた型の族を使って不変量をエンコードすると困難が生じる可能性があります。まず、それぞれの不変量は独自のデータ型を必要とし、そのデータ型は独自のサポートのためのライブラリを必要とします。つまるところ、`List.append` と `Vect.append` は互換性が無いということです。これはコードの重複につながります。第二に、添字付けられた型の族を便利に使用するには、型の中で使用される関数の再帰構造が型チェックされるプログラムの再帰構造と一致する必要があります。添字付けられた型の族によるプログラミングはこのように適切な一致を起こせるように手配する技術なのです。一致のミスの回避のために等式の証明に訴えることは可能ですが、これは難しく、難解な正当化がちりばめられたプログラムとなってしまいます。第三に、型チェック中に大きな値に対して複雑なコードを実行すると、コンパイル時の速度低下を招く可能性があります。複雑なプログラムでこのような速度低下を避けるには特殊なテクニックが必要になります。
 
 <!--
 ## Definitional and Propositional Equality
 -->
 
-## 定義上と命題の同値
+## Definitional Equality と Propositional Equality
 
 <!--
 Lean's type checker must, from time to time, check whether two types should be considered interchangeable.
@@ -126,13 +126,13 @@ Leanの型チェッカは2つの型が交換可能かどうかを、時々では
  * _Definitional equality_ is an underapproximation of equality that essentially checks for equality of syntactic representation modulo computation and renaming of bound variables. Lean automatically checks for definitional equality in situations where it is required.
  -->
 
- * **定義上の同値** とは、同値性の下位の近似であり、基本的にはモジュロ計算と束縛変数の名前の変更の構文表現の同値性をチェックします。Leanは定義上の同値が必要とされる状況では、自動的に定義上の同値をチェックします。
+ * _definitional equality_ とは、同値性の下位の近似であり、基本的にはモジュロ計算と束縛変数の名前の変更の構文表現の同値性をチェックします。Leanは definitional equality が必要とされる状況では、自動的に definitional equality をチェックします。
 
  <!--
  * _Propositional equality_ must be explicitly proved and explicitly invoked by the programmer. In return, Lean automatically checks that the proofs are valid and that the invocations accomplish the right goal.
  -->
 
- * **命題の同値** はプログラマによって明示的に証明され、明示的に呼び出されなければなりません。その見返りとして、Leanは証明が有効であること、そして呼び出しが正しいゴールを達成することを自動的にチェックします。
+ * _propositional equality_ はプログラマによって明示的に証明され、明示的に呼び出されなければなりません。その見返りとして、Leanは証明が有効であること、そして呼び出しが正しいゴールを達成することを自動的にチェックします。
 
 <!--
 The two notions of equality represent a division of labor between programmers and Lean itself.
@@ -140,7 +140,7 @@ Definitional equality is simple, but automatic, while propositional equality is 
 Propositional equality can be used to unstick otherwise-stuck programs in types.
 -->
 
-この2つの同値の概念はプログラマとLean自身の間の分業を表しています。定義上の同値は単純ですが自動的であり、命題の同値は手動ですが、表現力豊かです。命題の同値は型にはまり込んだプログラムを解きほぐすことに使えます。
+この2つの同値の概念はプログラマとLean自身の間の分業を表しています。definitional equality は単純ですが自動的であり、propositional equality は手動ですが、表現力豊かです。propositional equality は型にはまり込んだプログラムを解きほぐすことに使えます。
 
 <!--
 However, the frequent use of propositional equality to unstick type-level computation is typically a code smell.
@@ -148,4 +148,4 @@ It typically means that coincidences were not well-engineered, and it's usually 
 When propositional equality is instead used to prove that a program meets a specification, or as part of a subtype, there is less reason to be suspicious.
 -->
 
-しかし、型レベルの計算を解くために命題の同値を多用することは一般的にコードの臭いとなります。これは通常、型の一致がうまく設計されていないことを意味し、型と添字を再設計するか、必要な不変量を強制するために別のテクニックを使用する方が良い考えです。命題の同値がプログラムの仕様を満たしていることを証明するためであったり、部分型の一部として使われる分には違和感はあまりありません。
+しかし、型レベルの計算を解くために propositional equality を多用することは一般的にコードの臭いとなります。これは通常、型の一致がうまく設計されていないことを意味し、型と添字を再設計するか、必要な不変量を強制するために別のテクニックを使用する方が良い考えです。propositional equality がプログラムの仕様を満たしていることを証明するためであったり、部分型の一部として使われる分には違和感はあまりありません。

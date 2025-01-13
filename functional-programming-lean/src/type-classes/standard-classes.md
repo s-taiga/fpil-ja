@@ -90,8 +90,8 @@ Due to Lean's use as a theorem prover, there are really two kinds of equality op
  * _Boolean equality_ is the same kind of equality that is found in other programming languages. It is a function that takes two values and returns a `Bool`. Boolean equality is written with two equals signs, just as in Python and C#. Because Lean is a pure functional language, there's no separate notions of reference vs value equality—pointers cannot be observed directly.
  * _Propositional equality_ is the mathematical statement that two things are equal. Propositional equality is not a function; rather, it is a mathematical statement that admits proof. It is written with a single equals sign. A statement of propositional equality is like a type that classifies evidence of this equality.
 -->
- * **真偽値の同値** （Boolean equality）は他のプログラミング言語にも存在する等号と同じです。これは2つの値を取り、`Bool` 値を返す関数です。PythonやC#と同じように、真偽値の同値は等号を2つ用いて書かれます。Leanは純粋な関数型言語であるため、参照の同値と値の同値という個別の概念はありません。ポインタの中身は直接見ることができません。
- * **命題の同値** （Propositional equality）は2つのものが等しいということの数学的な文です。命題の同値は関数ではありません；むしろ証明可能な数学的な文です。これは等号を1つ使って記述されます。命題の同値の文は、この等式の根拠を分類する型のようなものです。
+ * _boolean equality_ は他のプログラミング言語にも存在する等号と同じです。これは2つの値を取り、`Bool` 値を返す関数です。PythonやC#と同じように、boolean equality は等号を2つ用いて書かれます。Leanは純粋な関数型言語であるため、参照の同値と値の同値という個別の概念はありません。ポインタの中身は直接見ることができません。
+ * _propositional equality_ は2つのものが等しいということの数学的な文です。propositional equality は関数ではありません；むしろ証明可能な数学的な文です。これは等号を1つ使って記述されます。propositional equality の文は、この等式の根拠を分類する型のようなものです。
  
 <!--
 Both notions of equality are important, and used for different purposes.
@@ -101,7 +101,7 @@ Some values, such as functions, cannot be checked for equality.
 For example, `{{#example_in Examples/Classes.lean functionEq}}` yields the error:
 -->
 
-これらの等号の概念はどちらも重要であり、それぞれ異なる目的で用いられます。ある判断が2つの値が等しいかどうかということから構成される必要がある場合、そのプログラムでは真偽値の同値が有効です。例えば、`{{#example_in Examples/Classes.lean boolEqTrue}}` は `{{#example_out Examples/Classes.lean boolEqTrue}}` と評価され、`{{#example_in Examples/Classes.lean boolEqFalse}}` は `{{#example_out Examples/Classes.lean boolEqFalse}}` と評価されます。一方で関数のようないくつかの値については等しいかどうかのチェックができません。例えば `{{#example_in Examples/Classes.lean functionEq}}` は以下のエラーを出力します：
+これらの等号の概念はどちらも重要であり、それぞれ異なる目的で用いられます。ある判断が2つの値が等しいかどうかということから構成される必要がある場合、そのプログラムでは boolean equality が有効です。例えば、`{{#example_in Examples/Classes.lean boolEqTrue}}` は `{{#example_out Examples/Classes.lean boolEqTrue}}` と評価され、`{{#example_in Examples/Classes.lean boolEqFalse}}` は `{{#example_out Examples/Classes.lean boolEqFalse}}` と評価されます。一方で関数のようないくつかの値については等しいかどうかのチェックができません。例えば `{{#example_in Examples/Classes.lean functionEq}}` は以下のエラーを出力します：
 
 ```output error
 {{#example_out Examples/Classes.lean functionEq}}
@@ -122,7 +122,7 @@ The statement `{{#example_in Examples/Classes.lean functionEqProp}}` is a perfec
 From the perspective of mathematics, two functions are equal if they map equal inputs to equal outputs, so this statement is even true, though it requires a two-line proof to convince Lean of this fact.
 -->
 
-命題の同値はプログラムの呼び出しではなく、数学的な文です。命題はある文の根拠を記述する型のようなものであるため、真偽値の同値よりも `String` や `Nat → List Int` などのような型との共通点が多いです。このため、この同値は自動的にチェックすることができません。しかし、2つの式の同値性は、その2つが同じ型である限りLeanで記述することはできます。したがって `{{#example_in Examples/Classes.lean functionEqProp}}` は文として完全に妥当に成立しています。数学の観点において、2つの関数が同値であるとは同じ入力から同じ出力に写す場合のことであるため、先ほどの文は真となります。にもかかわらずこの事実をLeanに納得させるためには2行の証明が必要になります。
+propositional equality はプログラムの呼び出しではなく、数学的な文です。命題はある文の根拠を記述する型のようなものであるため、 boolean equality よりも `String` や `Nat → List Int` などのような型との共通点が多いです。このため、この同値は自動的にチェックすることができません。しかし、2つの式の同値性は、その2つが同じ型である限りLeanで記述することはできます。したがって `{{#example_in Examples/Classes.lean functionEqProp}}` は文として完全に妥当に成立しています。数学の観点において、2つの関数が同値であるとは同じ入力から同じ出力に写す場合のことであるため、先ほどの文は真となります。にもかかわらずこの事実をLeanに納得させるためには2行の証明が必要になります。
 
 <!--
 Generally speaking, when using Lean as a programming language, it's easiest to stick to Boolean functions rather than propositions.
